@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Parser</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container">
+      <div class="page title">
+        <h1>Parse XML TO JSON</h1>
+      </div>
+      <hr/>
+      <form class="" action="/xml-to-json" method="post">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <textarea class="form-control" cols="70" rows="15" name="xml-to-json-input" value="" placeholder="XML"></textarea>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <center>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span> To JSON</button>
+              </div>
+              <div class="form-group">
+                <a href="/json-to-xml" class="button, btn btn-default">JSON To XML</a>
+              </div>
+              <div class="form-group">
+                <a href="/" class="button, btn btn-default">Home</a>
+              </div>
+            </center>
+          </div>
+          <div class="col-md-5">
+            <div class="form-group">
+              <textarea class="form-control" cols="70" rows="15" name="xml-to-json-result" value="" placeholder="JSON">{{.}}</textarea>
+            </div>
+          </div>
+        </div>
+    </form>
+    </div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  </body>
+</html>

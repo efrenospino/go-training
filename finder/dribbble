@@ -1,0 +1,83 @@
+package main
+
+import (
+	"bytes"
+	"encoding/json"
+	"log"
+	"net/http"
+	"text/template"
+
+	"golang.org/x/oauth2"
+)
+
+const (
+	DribbbleClientID          = "07e4dbfbbf7ed38f03fe417df2991fe3c87ac13e0d6f1978322feb4f89439b88"
+	DribbbleClientSecret      = "005e17b071e00741fdfcb94b2297dfa527bd3779b364a488cb5228853de3fe1b"
+	dribbbleClientAccessToken = "ea16118a37c0644ed97a422191c46e44013ad3ae333b33c4eab9b6d9507503b9"
+	endPoint                  = "https://api.dribbble.com/v1"
+	redirectURL               = "http://localhost:3000"
+)
+
+type DribbbleResponse struct {
+	Name     string `json:"name"`
+	Username string `json:"username"`
+	URL      string `json:"html_url"`
+	Avatar   string `json:"avatar_url"`
+	Bio      string `json:"bio"`
+	Location string `json:"location"`
+	Links    struct {
+		Website string `json:"web"`
+		Twitter string `json:"twitter"`
+	} `json:"links"`
+	Since string `json:"created_at"`
+}
+
+var config = &oauth2.Config{
+	ClientID:     DribbbleClientID,
+	ClientSecret: DribbbleClientSecret,
+	Endpoint: oauth2.Endpoint{
+		AuthURL:  "https://dribbble.com/oauth/authorize",
+		TokenURL: "https://dribbble.com/oauth/token",
+	},
+	Scopes: []string{"public"},
+}
+
+var (
+	code  = ""
+	token = ""
+)
+
+func Authorize(w http.ResponseWriter, r *http.Request) {
+	url := config.AuthCodeURL("isu4543yvgerg9e488", oauth2.AccessTypeOffline)
+	log.Println("Running...", url)
+	http.Redirect(w, r, url, 301)
+}
+
+func DribbbleCallBack(w http.ResponseWriter, r *http.Request) {
+
+	code := r.FormValue("code")
+
+	token, err := config.Exchange(oauth2.NoContext, code)
+	CheckError(err)
+
+	client := config.Client(oauth2.NoContext, token)
+
+	response, err := client.Get(endPoint + "/users/wawandco")
+	CheckError(err)
+
+	buf := new(bytes.Buffer)
+	defer response.Body.Close()
+	buf.ReadFrom(response.Body)
+
+	profile := new(DribbbleResponse)
+	json.Unmarshal([]byte(buf.String()), &profile)
+
+	t, _ := template.ParseFiles("public/dribbble.html")
+	t.Execute(w, profile)
+}
+
+func FindInDribbble(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	userToFind := r.FormValue("user")
+	w.Write([]byte(userToFind))
+}

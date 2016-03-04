@@ -1,0 +1,30 @@
+defaults: &defaults
+  appname: firstRaspao
+  apppath: github.com/efrenospino/firstRaspao
+  database:
+    url:    db.sqlite3
+    driver: sqlite3 # could be mysql or sqlite
+  cors:
+    allowed_origins:
+      - "*"
+    allowed_methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+    allowed_headers:
+      - "Accept"
+      - "Content-Type"
+      - "Content-Length"
+      - "Accept-Encoding"
+      - "Authorization"
+
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

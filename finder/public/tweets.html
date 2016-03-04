@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <title>findInTwitter!</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="page-title">
+          <h1>FindMe!</h1>
+          <hr/>
+        </div>
+        <form class="form-inline" action="/tweets" method="post">
+          <div class="form-group">
+            <input type="text" placeholder="Username" name="user" class="form-control" value="">
+          </div>
+          <div class="form-group">
+            <input type="number" placeholder="Number of tweets" name="count" class="form-control" value="">
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary pull-right">Find</button>
+          </div>
+          <div class="form-group">
+            <a type="button" href="/" class="btn btn-default pull-right ">Home</a>
+          </div>
+        </form>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <h2>Tweets</h2>
+          {{range .}}
+          <div class="well">
+            <h5>{{.Text}}</h5>
+            <small>{{.Date}} | {{.User.Name}} @{{.User.ScreenName}} </small>
+          </div>
+          {{end}}
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  </body>
+</html>

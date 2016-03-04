@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <title>findInGitHub!</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="page-title">
+          <h1>FindMe!</h1>
+          <hr/>
+        </div>
+        <form class="form-inline" action="/github" method="get">
+          <div class="form-group">
+            <input type="text" placeholder="Username" name="username" class="form-control" value="">
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary pull-right">Repos</button>
+          </div>
+          <div class="form-group">
+            <a type="button" href="/" class="btn btn-default pull-right ">Home</a>
+          </div>
+        </form>
+      </div>
+      <hr>
+      <div class="row">
+        <center>
+        <div class="col-md-12">
+            <img src={{.Info.Avatar}} alt={{.Info.Avatar}}>
+            <div class="caption">
+              <h3>{{.Info.Name}}</h3>
+              <p>{{.Info.Type}}</p>
+              <p>{{.Info.Email}}</p>
+              <p>Folow on GitHub <a href={{.Info.URL}}>{{.Info.URL}}</a></p>
+              <p>On GitHub since {{.Info.Since}}</p>
+              <p>Public repositories: {{.Info.Repos}}</p>
+              <p>{{.Info.Location}} <span class="label label-default">Location</span></p>
+            </div>
+        </div>
+      </center>
+      </div>
+      <center>
+        <br><h4>Repositories</h4><br>
+      </center>
+        {{range .Repos}}
+        <div class="row">
+          <div class="col-md-3">
+
+          </div>
+          <div class="col-md-6">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <h3 class="panel-title">{{.Name}}</h3>
+              </div>
+              <div class="panel-body">
+                {{.Description}}<br>
+                URL: <a href="{{.URL}}">{{.URL}}</a><br>
+                Created: {{.Created}}<br>
+                Updated on {{.LastUpdate}}<br>
+                Programming language: {{.Language}}<br>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{end}}
+      <!--  {{range .Shots}}
+        <div class="row">
+          <div class="col-md-4">
+          </div>
+          <div class="col-md-4">
+            <div class="thumbnail">
+              <img src="{{.Images.Normal}}" alt="{{.Title}}">
+              <div class="caption">
+                <h3>{{.Title}}</h3>
+                <p>{{.Description}}</p>
+                <p>
+                  <span class="glyphicon glyphicon-thumbs-up"></span> {{.Likes}}
+                  <span class="glyphicon glyphicon-eye-open"></span> {{.Views}}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{end}}-->
+    </div>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  </body>
+</html>
